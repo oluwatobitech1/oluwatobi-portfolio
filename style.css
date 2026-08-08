@@ -588,6 +588,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     var(--bg-elevated-2);
   overflow: hidden;
 }
+.project-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease);
+}
+.project-card:hover .project-img { transform: scale(1.05); }
+/* If an <img> fails to load (or hasn't been added yet), it collapses to
+   nothing and the gradient + glyph placeholder underneath shows instead. */
+.project-img:not([src]), .project-img[src=""] { display: none; }
 .project-media::before {
   content: attr(data-glyph);
   position: absolute;
