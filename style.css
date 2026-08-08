@@ -581,7 +581,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .project-media {
   position: relative;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 2 / 1;
   background:
     radial-gradient(circle at 20% 20%, rgba(216,178,110,0.16), transparent 55%),
     radial-gradient(circle at 80% 80%, rgba(111,227,196,0.14), transparent 55%),
@@ -594,6 +594,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
   transition: transform 0.6s var(--ease);
 }
 .project-card:hover .project-img { transform: scale(1.05); }
