@@ -6,19 +6,26 @@
    ========================================================================== */
 
 :root {
-  /* Color */
-  --bg:            #0f0e13;
-  --bg-elevated:   #17151d;
-  --bg-elevated-2: #1e1b25;
-  --text:          #f3efe8;
-  --text-dim:      #9d97a8;
-  --text-faint:    #6b6577;
-  --line:          rgba(243, 239, 232, 0.10);
-  --line-strong:   rgba(243, 239, 232, 0.18);
-  --gold:          #d8b26e;
-  --gold-soft:     rgba(216, 178, 110, 0.14);
-  --teal:          #6fe3c4;
-  --teal-soft:     rgba(111, 227, 196, 0.14);
+  /* Color — strict black / yellow / white palette */
+  --bg:            #000000;
+  --bg-elevated:   #0d0d0d;
+  --bg-elevated-2: #171717;
+  --text:          #ffffff;
+  --text-dim:      #c4c4c4;
+  --text-faint:    #8a8a8a;
+  --line:          rgba(255, 255, 255, 0.12);
+  --line-strong:   rgba(255, 255, 255, 0.22);
+
+  --accent:        #f5c518;              /* solid yellow — buttons, dots, fills */
+  --accent-ink:    #f5c518;              /* yellow used as TEXT/stroke colour — swaps for contrast in light mode */
+  --accent-soft:   rgba(245, 197, 24, 0.14);
+  --accent-on:     #100c00;              /* text colour placed ON TOP of accent-filled buttons */
+
+  /* legacy aliases kept so nothing else in the file needs touching */
+  --gold:  var(--accent);
+  --teal:  var(--accent-ink);
+  --gold-soft: var(--accent-soft);
+  --teal-soft: var(--accent-soft);
 
   /* Type */
   --font-display: 'Fraunces', Georgia, serif;
@@ -34,6 +41,26 @@
   /* Motion */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --dur: 0.6s;
+
+  color-scheme: dark;
+  transition: background-color 0.4s var(--ease), color 0.4s var(--ease);
+}
+
+/* ---------- Light mode ---------- */
+[data-theme="light"] {
+  --bg:            #ffffff;
+  --bg-elevated:   #f6f6f4;
+  --bg-elevated-2: #ececea;
+  --text:          #0a0a0a;
+  --text-dim:      #4c4c4c;
+  --text-faint:    #767676;
+  --line:          rgba(0, 0, 0, 0.10);
+  --line-strong:   rgba(0, 0, 0, 0.20);
+
+  --accent-ink:    #8a6a00;              /* darker yellow so text stays readable on white */
+  --accent-on:     #100c00;
+
+  color-scheme: light;
 }
 
 /* ---------- Reset ---------- */
@@ -121,7 +148,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .italic-accent {
   font-style: italic;
-  color: var(--gold);
+  color: var(--teal);
   font-weight: 450;
 }
 
@@ -150,7 +177,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   opacity: 0;
 }
 .cursor-dot.active { opacity: 1; }
-.cursor-dot.hovering { width: 34px; height: 34px; background: transparent; border: 1px solid var(--gold); }
+.cursor-dot.hovering { width: 34px; height: 34px; background: transparent; border: 1px solid var(--teal); }
 @media (hover: none), (pointer: coarse) { .cursor-dot { display: none; } }
 
 /* ---------- Scroll progress ---------- */
@@ -205,7 +232,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   color: var(--text);
   flex-shrink: 0;
 }
-.nav-logo em { color: var(--gold); font-style: normal; }
+.nav-logo em { color: var(--teal); font-style: normal; }
 .logo-mark { color: var(--teal); display: inline-flex; }
 
 .nav-links {
@@ -233,6 +260,27 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .nav-links a:hover::after { width: 100%; }
 
 .nav-cta { flex-shrink: 0; }
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--text);
+  padding: 0;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s var(--ease);
+}
+.theme-toggle:hover { border-color: var(--accent); transform: rotate(12deg); }
+.theme-toggle svg { position: absolute; transition: opacity 0.3s var(--ease), transform 0.4s var(--ease); }
+.icon-moon { opacity: 1; transform: scale(1) rotate(0deg); }
+.icon-sun { opacity: 0; transform: scale(0.5) rotate(-40deg); }
+[data-theme="light"] .icon-moon { opacity: 0; transform: scale(0.5) rotate(40deg); }
+[data-theme="light"] .icon-sun { opacity: 1; transform: scale(1) rotate(0deg); }
 
 .hamburger {
   display: none;
@@ -273,7 +321,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .btn-primary { background: var(--gold); color: #16130d; }
 .btn-primary:hover { background: #e6c485; }
 .btn-ghost { border-color: var(--line-strong); color: var(--text); }
-.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+.btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
 .btn-outline { border-color: var(--line-strong); color: var(--text); background: transparent; }
 .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
 .btn-sm { padding: 9px 18px; font-size: 12.5px; }
@@ -361,7 +409,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .hero-role {
   font-family: var(--font-mono);
   font-size: clamp(14px, 1.9vw, 18px);
-  color: var(--gold);
+  color: var(--teal);
   margin-bottom: 26px;
   min-height: 1.4em;
 }
@@ -425,7 +473,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-size: clamp(34px, 4vw, 50px);
   color: var(--text);
 }
-.stat-suffix { font-family: var(--font-display); font-size: clamp(24px, 3vw, 36px); color: var(--gold); }
+.stat-suffix { font-family: var(--font-display); font-size: clamp(24px, 3vw, 36px); color: var(--teal); }
 .stat-label {
   display: block;
   font-family: var(--font-mono);
@@ -583,8 +631,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   position: relative;
   aspect-ratio: 2 / 1;
   background:
-    radial-gradient(circle at 20% 20%, rgba(216,178,110,0.16), transparent 55%),
-    radial-gradient(circle at 80% 80%, rgba(111,227,196,0.14), transparent 55%),
+    radial-gradient(circle at 20% 20%, rgba(245,197,24,0.14), transparent 55%),
+    radial-gradient(circle at 80% 80%, rgba(255,255,255,0.06), transparent 55%),
     var(--bg-elevated-2);
   overflow: hidden;
 }
@@ -636,7 +684,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--teal);
 }
 .project-body h3 { font-size: 22px; margin-bottom: 10px; font-weight: 500; }
 .project-body > p { color: var(--text-dim); font-size: 14.5px; margin-bottom: 18px; }
@@ -706,8 +754,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   transition: background 0.35s var(--ease), color 0.35s var(--ease);
 }
 .connect-item svg { transition: transform 0.35s var(--ease), color 0.35s; color: var(--text-faint); }
-.connect-item:hover { background: var(--bg-elevated-2); color: var(--gold); }
-.connect-item:hover svg { transform: translate(3px, -3px); color: var(--gold); }
+.connect-item:hover { background: var(--bg-elevated-2); color: var(--teal); }
+.connect-item:hover svg { transform: translate(3px, -3px); color: var(--teal); }
 
 /* ==========================================================================
    CONTACT
@@ -722,7 +770,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   opacity: 0.4;
   pointer-events: none;
 }
-#pulseLine2 { stroke: var(--gold); opacity: 0.3; }
+#pulseLine2 { stroke: var(--teal); opacity: 0.3; }
 
 .contact-inner { position: relative; z-index: 1; }
 .contact-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; margin-top: 20px; }
@@ -786,7 +834,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .footer-brand p { color: var(--text-faint); font-size: 13.5px; margin-top: 12px; }
 .footer-links { display: flex; flex-direction: column; gap: 12px; }
 .footer-links a { font-size: 14px; color: var(--text-dim); transition: color 0.25s; }
-.footer-links a:hover { color: var(--gold); }
+.footer-links a:hover { color: var(--teal); }
 .footer-social { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
 .footer-social a { font-size: 14px; color: var(--text-dim); transition: color 0.25s; }
 .footer-social a:hover { color: var(--teal); }
