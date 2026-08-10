@@ -11,6 +11,37 @@
   const docEl = document.documentElement;
 
   /* ---------------------------------------------------------------------
+     Theme toggle (dark / light) — persists across visits
+     --------------------------------------------------------------------- */
+  const themeToggle = document.getElementById("themeToggle");
+  const rootEl = document.documentElement;
+
+  function applyTheme(theme) {
+    if (theme === "light") {
+      rootEl.setAttribute("data-theme", "light");
+      themeToggle.setAttribute("aria-label", "Switch to dark mode");
+    } else {
+      rootEl.removeAttribute("data-theme");
+      themeToggle.setAttribute("aria-label", "Switch to light mode");
+    }
+  }
+
+  let savedTheme = "dark";
+  try {
+    savedTheme = localStorage.getItem("portfolio-theme") || "dark";
+  } catch (err) {
+    /* localStorage unavailable (e.g. privacy mode) — default to dark */
+  }
+  applyTheme(savedTheme);
+
+  themeToggle.addEventListener("click", () => {
+    const isLight = rootEl.getAttribute("data-theme") === "light";
+    const next = isLight ? "dark" : "light";
+    applyTheme(next);
+    try { localStorage.setItem("portfolio-theme", next); } catch (err) { /* ignore */ }
+  });
+
+  /* ---------------------------------------------------------------------
      Footer year
      --------------------------------------------------------------------- */
   const yearEl = document.getElementById("year");
