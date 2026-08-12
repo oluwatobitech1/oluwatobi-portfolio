@@ -656,6 +656,34 @@
   <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8.5 8.7c.3-.7.6-.7.9-.7h.6c.2 0 .4 0 .6.5s.7 1.7.7 1.8.1.2 0 .4-.2.3-.4.5-.4.4-.2.7c.2.3.9 1.5 2 2.4 1.4 1.2 2 1.3 2.3 1.2s.5-.5.7-.8.5-.3.8-.2 1.7.8 2 1 .5.3.5.5-.1 1-.6 1.5-1.5 1.1-2.4 1c-1-.1-3.2-1.3-4.4-2.9-1.4-1.7-2.2-3.3-2.4-3.9s-.3-1.4-.1-2Z" fill="currentColor" stroke="none"/></svg>
 </a>
 
+<!-- AI FAQ assistant — always available, answers common questions instantly -->
+<div class="ai-widget">
+  <button class="ai-toggle" id="aiToggle" aria-expanded="false" aria-controls="aiPanel" aria-label="Open AI assistant" data-cursor-hover>
+    <svg class="ai-icon-chat" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16a1 1 0 0 1 1 1V15a1 1 0 0 1-1 1H9l-4.5 4V16H4a1 1 0 0 1-1-1V6.5a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="8.3" cy="10.7" r="1" fill="currentColor"/><circle cx="12" cy="10.7" r="1" fill="currentColor"/><circle cx="15.7" cy="10.7" r="1" fill="currentColor"/></svg>
+    <svg class="ai-icon-close" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 3l12 12M15 3 3 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </button>
+
+  <div class="ai-panel" id="aiPanel" role="dialog" aria-label="Ask about my work" aria-hidden="true">
+    <div class="ai-panel-header">
+      <div>
+        <p class="ai-panel-title">Ask about my work</p>
+        <p class="ai-panel-sub"><span class="dot-live" aria-hidden="true"></span>Always active — instant replies</p>
+      </div>
+    </div>
+
+    <div class="ai-panel-messages" id="aiMessages"></div>
+
+    <div class="ai-quick-replies" id="aiQuickReplies"></div>
+
+    <form class="ai-panel-form" id="aiForm">
+      <input type="text" id="aiInput" placeholder="Ask a question…" autocomplete="off" aria-label="Type your question">
+      <button type="submit" aria-label="Send message">
+        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </form>
+  </div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
