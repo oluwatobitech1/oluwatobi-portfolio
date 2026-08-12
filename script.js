@@ -475,10 +475,22 @@
   }
 
   /* ---------------------------------------------------------------------
-     Contact form (front-end only — no backend wired up)
+     Contact form — builds a WhatsApp message from the entered details and
+     opens it directly, since every contact path on this site routes to
+     WhatsApp rather than a backend inbox.
      --------------------------------------------------------------------- */
   const contactForm = document.getElementById("contactForm");
   const formStatus = document.getElementById("formStatus");
+  const WHATSAPP_NUMBER = "2348103442267";
+
+  const projectTypeLabels = {
+    website: "Website / Web App",
+    wordpress: "WordPress Site",
+    uiux: "UI/UX Design",
+    social: "Social Media Management",
+    content: "Content & Graphic Design",
+    other: "Something else"
+  };
 
   if (contactForm) {
     contactForm.addEventListener("submit", (e) => {
@@ -488,17 +500,32 @@
         formStatus.style.color = "#e08a8a";
         return;
       }
+
+      const name = contactForm.name.value.trim();
+      const email = contactForm.email.value.trim();
+      const projectTypeValue = contactForm.projectType.value;
+      const projectType = projectTypeLabels[projectTypeValue] || projectTypeValue;
+      const message = contactForm.message.value.trim();
+
+      const waText =
+        `Hi Oluwatobi, I'm ${name}.\n` +
+        `Email: ${email}\n` +
+        `Project type: ${projectType}\n\n` +
+        `${message}`;
+
+      const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`;
+
       const submitBtn = contactForm.querySelector(".form-submit .btn-label");
       const originalLabel = submitBtn.textContent;
-      submitBtn.textContent = "Sending…";
+      submitBtn.textContent = "Opening WhatsApp…";
 
-      // Front-end only demo: replace with a real endpoint (Formspree, EmailJS, etc.)
       setTimeout(() => {
+        window.open(waLink, "_blank", "noopener");
         submitBtn.textContent = originalLabel;
         formStatus.style.color = "";
-        formStatus.textContent = "Thanks — your message is ready to send. Connect a form service (e.g. Formspree) to deliver it to your inbox.";
+        formStatus.textContent = "Opening WhatsApp with your message filled in — just hit send there.";
         contactForm.reset();
-      }, 700);
+      }, 400);
     });
   }
 
