@@ -52,67 +52,63 @@
   const aiKnowledgeBase = [
     {
       keywords: ["service", "services", "what do you do", "offer", "help with"],
-      answer: "I offer web development (HTML/CSS/JS & WordPress), UI/UX design, social media management, content & graphic design, and ongoing website management. Want details on any of these?"
+      answer: "I build websites, design interfaces, and manage websites after launch. Want details?"
     },
     {
       keywords: ["website", "web dev", "web development", "build a site", "build a website", "landing page"],
-      answer: "I build custom, responsive websites with HTML, CSS & JavaScript, plus WordPress builds and redesigns. Every site is mobile-first and built for speed. What kind of site are you thinking about?"
+      answer: "I build custom, responsive websites in HTML, CSS and JavaScript, or WordPress. What do you need?"
     },
     {
       keywords: ["wordpress", "elementor", "woocommerce"],
-      answer: "Yes, I build and redesign WordPress sites, including WooCommerce stores, using Elementor for fast, flexible layouts, plus ongoing maintenance and optimization."
+      answer: "Yes. I build and redesign WordPress sites, including WooCommerce stores."
     },
     {
       keywords: ["design", "ui", "ux", "figma", "interface"],
-      answer: "I design modern interfaces in Figma, from full site UI/UX to brand visuals and social graphics."
-    },
-    {
-      keywords: ["social media", "instagram", "tiktok", "content creation", "content strategy", "growth", "engagement"],
-      answer: "I manage social media from start to finish: content strategy, posting, graphics, short video editing, community engagement, and analytics/reporting to actually grow the account."
+      answer: "I design modern interfaces in Figma, from full site UI/UX to brand visuals."
     },
     {
       keywords: ["seo", "marketing", "digital marketing", "traffic", "rank"],
-      answer: "I handle basic SEO optimization and digital marketing support alongside web and social work, so the site and content actually get found."
+      answer: "Yes, I do basic SEO so your site gets found."
     },
     {
       keywords: ["price", "pricing", "cost", "how much", "rate", "budget", "quote"],
-      answer: "Pricing depends on project scope. A landing page and a full ecommerce build cost very differently. The fastest way to get an exact quote is to message me on WhatsApp with what you need."
+      answer: "It depends on the project. Message me on WhatsApp for an exact quote."
     },
     {
       keywords: ["how long", "timeline", "turnaround", "delivery time", "how fast"],
-      answer: "Timelines vary by project size. A simple site can take days, while a larger build or ongoing social management is longer-term. Message me your project details for a realistic timeline."
+      answer: "A simple site can take days. Larger builds take longer. Message me for a timeline."
     },
     {
       keywords: ["process", "how does it work", "how do you work", "steps"],
-      answer: "Generally: a quick discovery chat about your goals, a proposal/quote, design and build, review rounds, then launch, plus optional ongoing management. It starts with a WhatsApp message."
+      answer: "We chat about your goals, I send a quote, then design, build and launch."
     },
     {
       keywords: ["location", "based", "where are you", "akure", "ondo", "lagos", "nigeria", "remote"],
-      answer: "I'm based in Akure, Ondo State, Nigeria, and work with clients remotely, so location isn't a problem."
+      answer: "I'm in Akure, Ondo State, Nigeria, and work with clients remotely."
     },
     {
       keywords: ["available", "availability", "hire", "hiring", "freelance", "work with you", "work together"],
-      answer: "Yes, I'm currently available for freelance projects. The quickest way to start is the WhatsApp button in the corner, or the contact form below."
+      answer: "Yes, I'm available. Tap the WhatsApp button or use the contact form."
     },
     {
       keywords: ["project", "projects", "portfolio", "work you've done", "examples", "case study"],
-      answer: "Check the Featured Projects section above, JPV Brand, Synergy Logistics & Interior, a music artist site, an ecommerce concept, Emyjay Personal Care Store, Gramex Logistics, ASAF Hub, and social campaign work are all there. Tap “Case Study” on a project to see how it was built step by step."
+      answer: "See the Featured Projects section above. Tap Case Study on any project."
     },
     {
       keywords: ["contact", "email", "reach you", "get in touch", "whatsapp", "phone", "number"],
-      answer: "Easiest ways to reach me: the WhatsApp button in the corner, the contact form below, or email at aoluwatobi928@gmail.com."
+      answer: "Tap the WhatsApp button, use the contact form, or email aoluwatobi928@gmail.com."
     },
     {
-      keywords: ["tool", "tools", "software", "photoshop", "canva", "capcut"],
-      answer: "My toolkit spans HTML/CSS/JS, WordPress & Elementor for development, Figma/Photoshop/Canva for design, and CapCut for video content."
+      keywords: ["tool", "tools", "software", "photoshop", "canva"],
+      answer: "I use HTML, CSS, JavaScript, WordPress, Elementor, Figma and Photoshop."
     },
     {
       keywords: ["hello", "hi", "hey", "good morning", "good afternoon"],
-      answer: "Hey! Ask me anything about my services, past projects, or how to get started, or tap a suggestion below."
+      answer: "Hey! Ask me about my services, projects, or how to get started."
     }
   ];
 
-  const aiFallback = "I don't have a specific answer for that yet, but I can tell you about services, pricing, past projects, or how to get started. You can also message me directly on WhatsApp for anything specific.";
+  const aiFallback = "I don't have an answer for that yet. Ask about services, pricing or projects, or message me on WhatsApp.";
 
   function matchAiAnswer(userText) {
     const text = userText.toLowerCase();
@@ -375,7 +371,6 @@
   const roles = [
     "Web Developer",
     "Web Designer",
-    "Social Media Manager",
     "WordPress Developer",
     "UI/UX Designer",
     "Digital Creative"
@@ -427,7 +422,7 @@
       el.classList.add(i % 2 ? "from-right" : "from-left"));
   }
 
-  document.querySelectorAll(".section-title").forEach((title) => {
+  document.querySelectorAll(".section-title, .hero-headline").forEach((title) => {
     let n = 0;
     const wrap = (node) => {
       const w = document.createElement("span"); w.className = "w";
@@ -453,6 +448,21 @@
       io.observe(title);
     } else title.classList.add("words-in");
   });
+
+  document.querySelectorAll(".skill-group").forEach((g) => g.querySelectorAll(".chip").forEach((chip, i) => chip.style.setProperty("--ci", i)));
+
+  const timelineEl = document.querySelector(".timeline");
+  if (timelineEl && !prefersReducedMotion) {
+    let tick = false;
+    const draw = () => {
+      tick = false;
+      const r = timelineEl.getBoundingClientRect();
+      const p = (window.innerHeight * 0.7 - r.top) / r.height;
+      timelineEl.style.setProperty("--p", Math.min(1, Math.max(0.04, p)).toFixed(3));
+    };
+    window.addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(draw); } }, { passive: true });
+    draw();
+  }
 
   const marquee = document.querySelector(".marquee");
   if (marquee && "IntersectionObserver" in window) {
@@ -577,7 +587,6 @@
     website: "Website / Web App",
     wordpress: "WordPress Site",
     uiux: "UI/UX Design",
-    social: "Social Media Management",
     content: "Content & Graphic Design",
     other: "Something else"
   };
