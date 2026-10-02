@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Oluwatobi Ayodele — Portfolio
+   Oluwatobi Ayodele, Portfolio
    Vanilla JS: nav state, mobile menu, cursor, scroll progress, typewriter,
    counters, scroll reveal, magnetic buttons, signal-line generation, form.
    ========================================================================== */
@@ -11,7 +11,7 @@
   const docEl = document.documentElement;
 
   /* ---------------------------------------------------------------------
-     Theme toggle (dark / light) — persists across visits
+     Theme toggle (dark / light), persists across visits
      --------------------------------------------------------------------- */
   const themeToggle = document.getElementById("themeToggle");
   const rootEl = document.documentElement;
@@ -30,7 +30,7 @@
   try {
     savedTheme = localStorage.getItem("portfolio-theme") || "dark";
   } catch (err) {
-    /* localStorage unavailable (e.g. privacy mode) — default to dark */
+    /* localStorage unavailable (e.g. privacy mode), default to dark */
   }
   applyTheme(savedTheme);
 
@@ -43,10 +43,10 @@
 
   /* ---------------------------------------------------------------------
      AI FAQ assistant
-     A lightweight, fully client-side keyword-matching assistant — always
+     A lightweight, fully client-side keyword-matching assistant, always
      available with zero backend and zero API cost. Swap this matching
      function for a real LLM API call later if a backend is added (never
-     put a real API key directly in this file — it would be publicly
+     put a real API key directly in this file, it would be publicly
      visible to anyone who views the page source).
      --------------------------------------------------------------------- */
   const aiKnowledgeBase = [
@@ -60,15 +60,15 @@
     },
     {
       keywords: ["wordpress", "elementor", "woocommerce"],
-      answer: "Yes — I build and redesign WordPress sites, including WooCommerce stores, using Elementor for fast, flexible layouts, plus ongoing maintenance and optimization."
+      answer: "Yes, I build and redesign WordPress sites, including WooCommerce stores, using Elementor for fast, flexible layouts, plus ongoing maintenance and optimization."
     },
     {
       keywords: ["design", "ui", "ux", "figma", "interface"],
-      answer: "I design modern, conversion-focused interfaces in Figma — from full site UI/UX to brand visuals and social graphics."
+      answer: "I design modern interfaces in Figma, from full site UI/UX to brand visuals and social graphics."
     },
     {
       keywords: ["social media", "instagram", "tiktok", "content creation", "content strategy", "growth", "engagement"],
-      answer: "I manage social media end-to-end: content strategy, posting, graphics, short-form video editing, community engagement, and analytics/reporting to actually grow the account."
+      answer: "I manage social media from start to finish: content strategy, posting, graphics, short video editing, community engagement, and analytics/reporting to actually grow the account."
     },
     {
       keywords: ["seo", "marketing", "digital marketing", "traffic", "rank"],
@@ -76,19 +76,19 @@
     },
     {
       keywords: ["price", "pricing", "cost", "how much", "rate", "budget", "quote"],
-      answer: "Pricing depends on project scope — a landing page and a full e-commerce build cost very differently. The fastest way to get an exact quote is to message me on WhatsApp with what you need."
+      answer: "Pricing depends on project scope. A landing page and a full ecommerce build cost very differently. The fastest way to get an exact quote is to message me on WhatsApp with what you need."
     },
     {
       keywords: ["how long", "timeline", "turnaround", "delivery time", "how fast"],
-      answer: "Timelines vary by project size — a simple site can take days, a larger build or ongoing social management is longer-term. Message me your project details for a realistic timeline."
+      answer: "Timelines vary by project size. A simple site can take days, while a larger build or ongoing social management is longer-term. Message me your project details for a realistic timeline."
     },
     {
       keywords: ["process", "how does it work", "how do you work", "steps"],
-      answer: "Generally: a quick discovery chat about your goals, a proposal/quote, design and build, review rounds, then launch — plus optional ongoing management. It starts with a WhatsApp message."
+      answer: "Generally: a quick discovery chat about your goals, a proposal/quote, design and build, review rounds, then launch, plus optional ongoing management. It starts with a WhatsApp message."
     },
     {
-      keywords: ["location", "based", "where are you", "lagos", "nigeria", "remote"],
-      answer: "I'm based in Lagos, Nigeria, and work with clients remotely — location isn't a limitation."
+      keywords: ["location", "based", "where are you", "akure", "ondo", "lagos", "nigeria", "remote"],
+      answer: "I'm based in Akure, Ondo State, Nigeria, and work with clients remotely, so location isn't a problem."
     },
     {
       keywords: ["available", "availability", "hire", "hiring", "freelance", "work with you", "work together"],
@@ -96,7 +96,7 @@
     },
     {
       keywords: ["project", "projects", "portfolio", "work you've done", "examples", "case study"],
-      answer: "Check the Featured Projects section above — JPV Brand, Synergy Logistics & Interior, a music artist site, an e-commerce concept, and social campaign work are all there with details."
+      answer: "Check the Featured Projects section above, JPV Brand, Synergy Logistics & Interior, a music artist site, an ecommerce concept, Emyjay Personal Care Store, Gramex Logistics, ASAF Hub, and social campaign work are all there. Tap “Case Study” on a project to see how it was built step by step."
     },
     {
       keywords: ["contact", "email", "reach you", "get in touch", "whatsapp", "phone", "number"],
@@ -108,11 +108,11 @@
     },
     {
       keywords: ["hello", "hi", "hey", "good morning", "good afternoon"],
-      answer: "Hey! Ask me anything about my services, past projects, or how to get started — or tap a suggestion below."
+      answer: "Hey! Ask me anything about my services, past projects, or how to get started, or tap a suggestion below."
     }
   ];
 
-  const aiFallback = "I don't have a specific answer for that yet — but I can tell you about services, pricing, past projects, or how to get started. You can also message me directly on WhatsApp for anything specific.";
+  const aiFallback = "I don't have a specific answer for that yet, but I can tell you about services, pricing, past projects, or how to get started. You can also message me directly on WhatsApp for anything specific.";
 
   function matchAiAnswer(userText) {
     const text = userText.toLowerCase();
@@ -232,6 +232,35 @@
       if (e.key === "Escape" && aiWidget.classList.contains("open")) closeAiWidget();
     });
   }
+
+  /* ---------------------------------------------------------------------
+     Project cards, "View Description" expandable panels
+     --------------------------------------------------------------------- */
+  const detailTriggers = document.querySelectorAll("[data-details-target]");
+
+  function setDetails(panel, open) {
+    panel.classList.toggle("open", open);
+    document.querySelectorAll('[data-details-target="' + panel.id + '"]').forEach((btn) => {
+      if (btn.classList.contains("project-toggle")) {
+        btn.setAttribute("aria-expanded", String(open));
+        const label = btn.querySelector(".project-toggle-label");
+        if (label) label.textContent = open ? "Hide Case Study" : "Case Study";
+      }
+    });
+  }
+
+  detailTriggers.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const panel = document.getElementById(btn.getAttribute("data-details-target"));
+      if (!panel) return;
+      const willOpen = !panel.classList.contains("open");
+      setDetails(panel, willOpen);
+      // Opened from the hover overlay: bring the description into view.
+      if (willOpen && !btn.classList.contains("project-toggle")) {
+        setTimeout(() => panel.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "nearest" }), 250);
+      }
+    });
+  });
 
   /* ---------------------------------------------------------------------
      Footer year
@@ -387,6 +416,66 @@
   }
 
   /* ---------------------------------------------------------------------
+     Motion layer: directional reveals, title words, marquee, hero parallax
+     --------------------------------------------------------------------- */
+  const sideReveal = (els, dirFn) => els.forEach((el, i) => { el.classList.add("reveal-up", dirFn(i)); });
+  sideReveal(document.querySelectorAll(".about-grid > *"), (i) => (i % 2 ? "from-right" : "from-left"));
+  sideReveal(document.querySelectorAll(".contact-grid > *"), (i) => (i % 2 ? "from-right" : "from-left"));
+  sideReveal(document.querySelectorAll(".timeline-item"), () => "from-left");
+  if (matchMedia("(min-width: 1025px)").matches) {
+    document.querySelectorAll(".projects-grid > .project-card:not(.project-card-wide)").forEach((el, i) =>
+      el.classList.add(i % 2 ? "from-right" : "from-left"));
+  }
+
+  document.querySelectorAll(".section-title").forEach((title) => {
+    let n = 0;
+    const wrap = (node) => {
+      const w = document.createElement("span"); w.className = "w";
+      const inner = document.createElement("span"); inner.className = "w-i";
+      inner.style.setProperty("--i", n++); inner.append(node); w.append(inner); return w;
+    };
+    Array.from(title.childNodes).forEach((node) => {
+      if (node.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        node.textContent.split(/(\s+)/).forEach((t) => {
+          if (!t) return;
+          frag.append(/^\s+$/.test(t) ? " " : wrap(document.createTextNode(t)));
+        });
+        node.replaceWith(frag);
+      } else if (node.nodeName !== "BR") {
+        const ph = document.createComment(""); node.replaceWith(ph); ph.replaceWith(wrap(node));
+      }
+    });
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((es) => es.forEach((e) => {
+        if (e.isIntersecting) { title.classList.add("words-in"); io.disconnect(); }
+      }), { threshold: 0.3 });
+      io.observe(title);
+    } else title.classList.add("words-in");
+  });
+
+  const marquee = document.querySelector(".marquee");
+  if (marquee && "IntersectionObserver" in window) {
+    new IntersectionObserver((es) => es.forEach((e) => marquee.classList.toggle("is-paused", !e.isIntersecting)))
+      .observe(marquee);
+  }
+
+  const heroEl = document.querySelector(".hero");
+  const heroInnerEl = document.querySelector(".hero-inner");
+  if (heroEl && !prefersReducedMotion) {
+    let ticking = false;
+    const parallax = () => {
+      ticking = false;
+      const y = window.scrollY;
+      if (y > window.innerHeight * 1.1) return;
+      if (heroInnerEl) heroInnerEl.style.translate = `0 ${y * 0.12}px`;
+      const hp = document.getElementById("heroPulse");
+      if (hp) hp.style.translate = `0 ${y * 0.22}px`;
+    };
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(parallax); } }, { passive: true });
+  }
+
+  /* ---------------------------------------------------------------------
      Scroll reveal (IntersectionObserver)
      --------------------------------------------------------------------- */
   const revealEls = document.querySelectorAll(".reveal-up");
@@ -399,6 +488,7 @@
             const siblingDelay = Array.from(el.parentElement.children).indexOf(el) % 6;
             el.style.transitionDelay = prefersReducedMotion ? "0ms" : `${siblingDelay * 70}ms`;
             el.classList.add("in-view");
+            setTimeout(() => { el.style.transitionDelay = ""; }, 1300);
             revealObserver.unobserve(el);
           }
         });
@@ -475,7 +565,7 @@
   }
 
   /* ---------------------------------------------------------------------
-     Contact form — builds a WhatsApp message from the entered details and
+     Contact form, builds a WhatsApp message from the entered details and
      opens it directly, since every contact path on this site routes to
      WhatsApp rather than a backend inbox.
      --------------------------------------------------------------------- */
@@ -523,7 +613,7 @@
         window.open(waLink, "_blank", "noopener");
         submitBtn.textContent = originalLabel;
         formStatus.style.color = "";
-        formStatus.textContent = "Opening WhatsApp with your message filled in — just hit send there.";
+        formStatus.textContent = "Opening WhatsApp with your message filled in. Just hit send there.";
         contactForm.reset();
       }, 400);
     });
